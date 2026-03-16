@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Garden Tower Dashboard — AI & IoT-powered hydroponic monitoring system.">
+    <title>SGT Dashboard — Smart Garden Tower</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js 4 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" type="image/png" href="../logo-circle.png" />
+</head>
+<body>
+
+    <!-- i18n Script -->
+    <script src="i18n.js"></script>
+
+    <!-- ═══════════════════════════════ SIDEBAR ═══════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__brand">
+            <img src="../logo-circle.png" alt="SGT Logo" style="width: 32px; height: 32px; object-fit: cover; margin-right: 4px;" />
+            <span class="sidebar__logo-text">SGT <span class="sidebar__logo-accent">Dashboard</span></span>
+        </div>
+
+        <nav class="sidebar__nav">
+            <a href="#overview" class="sidebar__link sidebar__link--active" data-section="overview">
+                <i class="fa-solid fa-gauge-high"></i><span data-i18n="dashboard.sidebar.dashboard">Dashboard</span>
+            </a>
+            <a href="#towers" class="sidebar__link" data-section="towers">
+                <i class="fa-solid fa-tower-broadcast"></i><span data-i18n="dashboard.sidebar.towers">Towers</span>
+            </a>
+            <a href="#analytics" class="sidebar__link" data-section="analytics">
+                <i class="fa-solid fa-chart-line"></i><span data-i18n="dashboard.sidebar.analytics">Analytics</span>
+            </a>
+            <a href="#controls" class="sidebar__link" data-section="controls">
+                <i class="fa-solid fa-sliders"></i><span data-i18n="dashboard.sidebar.controls">Controls</span>
+            </a>
+            <a href="#alerts" class="sidebar__link" data-section="alerts">
+                <i class="fa-solid fa-bell"></i><span data-i18n="dashboard.sidebar.alerts">Alerts</span>
+            </a>
+        </nav>
+
+        <div class="sidebar__footer">
+            <div class="sidebar__user">
+                <div class="sidebar__avatar"><i class="fa-solid fa-user"></i></div>
+                <div class="sidebar__user-info">
+                    <span class="sidebar__user-name">Admin</span>
+                    <span class="sidebar__user-role" data-i18n="dashboard.sidebar.adminRole">Operator</span>
+                </div>
+            </div>
+            <button class="sidebar__logout" id="logoutBtn" title="Sign Out">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span data-i18n="dashboard.sidebar.signOut">Sign Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <header class="topbar" id="topbar">
+        <button class="topbar__toggle" id="menuToggle" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="topbar__title" style="display: flex; align-items: center;"><img src="../logo-circle.png" alt="SGT Logo" style="width: 24px; height: 24px; object-fit: cover; margin-right: 8px;" /> SGT Dashboard</span>
+            <button onclick="toggleLanguage()" class="lang-toggle" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; cursor: pointer; color: #fff; font-size: 0.85rem; transition: all 0.2s;">
+                <i class="fa-solid fa-globe"></i>
+            </button>
+        </div>
+        <span class="topbar__clock" id="topbarClock"></span>
+    </header>
+
+    <!-- ═════════════════════════════ MAIN CONTENT ═════════════════════════ -->
+    <main class="main" id="mainContent">
+
+        <!-- Page Header -->
+        <section class="page-header">
+            <div>
+                <h1 class="page-header__title" data-i18n="dashboard.header.title">Dashboard</h1>
+                <p class="page-header__subtitle" data-i18n="dashboard.header.subtitle">Smart Garden Tower — Real-time Monitoring</p>
+            </div>
+            <div class="page-header__meta">
+                <span class="page-header__clock" id="headerClock"></span>
+                <span class="page-header__badge" id="systemBadge"><i class="fa-solid fa-circle"></i> <span data-i18n="dashboard.header.online">Online</span></span>
+            </div>
+        </section>
+
+        <!-- ───────── 1. System Overview ───────── -->
+        <section class="section" id="overview">
+            <h2 class="section__title" data-i18n="dashboard.overview.title"><i class="fa-solid fa-gauge-high"></i> System Overview</h2>
+            <div class="overview-grid" id="overviewGrid">
+                <!-- Cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- ───────── 2. Water Tank Analytics ───────── -->
+        <section class="section" id="waterTank">
+            <h2 class="section__title" data-i18n="dashboard.water.title"><i class="fa-solid fa-droplet"></i> Water Tank Analytics</h2>
+            <div class="water-grid" id="waterGrid">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+
+        <!-- ───────── 3. Tower Management ───────── -->
+        <section class="section" id="towers">
+            <h2 class="section__title" data-i18n="dashboard.towers.title"><i class="fa-solid fa-tower-broadcast"></i> Tower Management</h2>
+            <div class="tower-grid" id="towerGrid">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+
+        <!-- ───────── 4. AI Diagnostic Center ───────── -->
+        <section class="section" id="alerts">
+            <h2 class="section__title" data-i18n="dashboard.alertsCenter.title"><i class="fa-solid fa-brain"></i> AI Diagnostic Center</h2>
+            <div class="diag-filters" id="diagFilters">
+                <!-- Filter chips injected by JS -->
+            </div>
+            <div class="alerts-panel" id="alertsPanel">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+
+        <!-- ───────── 5. Data Visualization ───────── -->
+        <section class="section" id="analytics">
+            <h2 class="section__title" data-i18n="dashboard.analytics.title"><i class="fa-solid fa-chart-line"></i> 7-Day Trends</h2>
+            <div class="chart-container">
+                <canvas id="trendsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- ───────── 6. Quick Controls ───────── -->
+        <section class="section" id="controls">
+            <h2 class="section__title" data-i18n="dashboard.controls.title"><i class="fa-solid fa-sliders"></i> Quick Controls</h2>
+            <div class="controls-grid" id="controlsGrid">
+                <!-- Injected by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Custom Script -->
+    <script src="dashboard.js"></script>
+</body>
+</html>

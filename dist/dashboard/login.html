@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to the Smart Garden Tower Dashboard.">
+    <title>Sign In — SGT Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../logo-circle.png" />
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ── Custom Selection ── */
+        ::selection { background-color: #2ecc71; color: #fff; }
+        ::-moz-selection { background-color: #2ecc71; color: #fff; }
+
+        /* ── Variables ── */
+        :root {
+            --clr-primary: #2ecc71;
+            --clr-primary-dark: #27ae60;
+            --clr-bg: #0f1923;
+            --clr-surface: #ffffff;
+            --clr-text: #2c3e50;
+            --clr-text-muted: #7f8c8d;
+            --clr-danger: #e74c3c;
+            --radius: 16px;
+            --transition: .3s cubic-bezier(.4,0,.2,1);
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: var(--clr-bg);
+            color: var(--clr-text);
+        }
+
+        /* ══════════════════════════════════════════
+           LEFT PANEL — Hero / Brand
+           ══════════════════════════════════════════ */
+        .login-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            background:
+                linear-gradient(135deg, rgba(15,25,35,.85), rgba(15,25,35,.6)),
+                url('https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=1200&q=80') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(46,204,113,.2), transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 420px;
+        }
+
+        .hero-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .hero-logo i {
+            font-size: 2.4rem;
+            color: var(--clr-primary);
+            filter: drop-shadow(0 0 20px rgba(46,204,113,.4));
+        }
+
+        .hero-logo span {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.5px;
+        }
+
+        .hero-logo .accent { color: var(--clr-primary); }
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,.6);
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,.7);
+            font-size: .88rem;
+            font-weight: 500;
+        }
+
+        .hero-feature i {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: rgba(46,204,113,.15);
+            color: var(--clr-primary);
+            display: grid;
+            place-items: center;
+            font-size: .8rem;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════════
+           RIGHT PANEL — Login Form
+           ══════════════════════════════════════════ */
+        .login-form-panel {
+            width: 500px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 50px;
+            background: var(--clr-surface);
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .form-header {
+            margin-bottom: 36px;
+        }
+
+        .form-header__title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .form-header__sub {
+            font-size: .9rem;
+            color: var(--clr-text-muted);
+        }
+
+        /* ── Input Groups ── */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--clr-text-muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .9rem;
+            color: #bdc3c7;
+            transition: color var(--transition);
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            border: 2px solid #ecf0f1;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .92rem;
+            color: var(--clr-text);
+            background: #fafbfc;
+            transition: all var(--transition);
+            outline: none;
+        }
+
+        .input-wrap input:focus {
+            border-color: var(--clr-primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(46,204,113,.1);
+        }
+
+        .input-wrap input:focus + i,
+        .input-wrap input:focus ~ i {
+            color: var(--clr-primary);
+        }
+
+        /* Password toggle */
+        .input-wrap .toggle-pass {
+            position: absolute;
+            right: 16px;
+            left: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: .9rem;
+            color: #bdc3c7;
+            transition: color var(--transition);
+            z-index: 2;
+        }
+
+        .input-wrap .toggle-pass:hover { color: var(--clr-primary); }
+
+        /* ── Error Alert ── */
+        .login-error {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #fdecea;
+            border: 1px solid rgba(231,76,60,.2);
+            color: var(--clr-danger);
+            font-size: .82rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: shakeX .4s ease;
+        }
+
+        .login-error.visible { display: flex; }
+
+        .login-error i { font-size: .9rem; flex-shrink: 0; }
+
+        @keyframes shakeX {
+            0%, 100% { transform: translateX(0); }
+            20%      { transform: translateX(-8px); }
+            40%      { transform: translateX(8px); }
+            60%      { transform: translateX(-4px); }
+            80%      { transform: translateX(4px); }
+        }
+
+        /* ── Submit Button ── */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--clr-primary);
+            color: #fff;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-login:hover {
+            background: var(--clr-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(46,204,113,.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login .spinner {
+            display: none;
+            width: 18px; height: 18px;
+            border: 2.5px solid rgba(255,255,255,.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+        }
+
+        .btn-login.loading .spinner { display: block; }
+        .btn-login.loading .btn-text { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Divider ── */
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 28px 0;
+            color: #bdc3c7;
+            font-size: .75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ecf0f1;
+        }
+
+        /* ── Demo Hint ── */
+        .demo-hint {
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            background: #f0faf4;
+            border: 1px solid rgba(46,204,113,.15);
+            font-size: .78rem;
+            color: var(--clr-text-muted);
+            line-height: 1.5;
+        }
+
+        .demo-hint strong {
+            color: var(--clr-primary-dark);
+        }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE ≤ 900px
+           ══════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+
+            .login-hero {
+                flex: none;
+                padding: 40px 24px;
+                min-height: 280px;
+            }
+
+            .hero-title { font-size: 1.6rem; }
+            .hero-features { display: none; }
+
+            .login-form-panel {
+                width: 100%;
+                padding: 40px 24px;
+            }
+        }
+
+        /* ── Fade-in animation ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-wrapper { animation: fadeInUp .6s ease both; }
+        .hero-content { animation: fadeInUp .6s ease .1s both; }
+    </style>
+</head>
+<body>
+
+    <!-- i18n Script -->
+    <script src="i18n.js"></script>
+
+    <!-- Language Toggle Button -->
+    <button onclick="toggleLanguage()" class="lang-toggle" style="position: absolute; top: 20px; right: 20px; z-index: 100; background: var(--clr-surface); border: 1px solid #ecf0f1; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-weight: 600; font-family: inherit; color: var(--clr-text); transition: all 0.2s;">
+        <i class="fa-solid fa-globe"></i> <span data-i18n="login.langBtn">Language</span>
+    </button>
+
+    <!-- ══════════ LEFT HERO PANEL ══════════ -->
+    <div class="login-hero">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="../logo-circle.png" alt="SGT Logo" style="width: 48px; height: 48px; filter: drop-shadow(0 0 10px rgba(46,204,113,.4));" />
+                <span>SGT <span class="accent">Dashboard</span></span>
+            </div>
+            <h1 class="hero-title" data-i18n="login.heroTitle">Smart Garden Tower</h1>
+            <p class="hero-subtitle" data-i18n="login.heroSubtitle">AI & IoT-powered hydroponic monitoring system. Track your towers, analyze growth data, and receive real-time AI diagnostics.</p>
+
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fa-solid fa-brain"></i>
+                    <span data-i18n="login.features.ai">AI-Powered Plant Diagnostics</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fa-solid fa-tower-broadcast"></i>
+                    <span data-i18n="login.features.iot">Real-time IoT Sensor Monitoring</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span data-i18n="login.features.analytics">7-Day Growth Analytics & Trends</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ RIGHT FORM PANEL ══════════ -->
+    <div class="login-form-panel">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <h2 class="form-header__title" data-i18n="login.title">Welcome Back</h2>
+                <p class="form-header__sub" data-i18n="login.subtitle">Sign in to access your garden dashboard</p>
+            </div>
+
+            <!-- Error message -->
+            <div class="login-error" id="loginError">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="errorText" data-i18n="login.errorMsg">Invalid email or password.</span>
+            </div>
+
+            <form id="loginForm" autocomplete="on">
+                <div class="input-group">
+                    <label for="email" data-i18n="login.emailLabel">Email Address</label>
+                    <div class="input-wrap">
+                        <input type="email" id="email" data-i18n="login.emailPlaceholder" placeholder="admin@sgt.com" autocomplete="email" required>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password" data-i18n="login.passwordLabel">Password</label>
+                    <div class="input-wrap">
+                        <input type="password" id="password" data-i18n="login.passwordPlaceholder" placeholder="••••••••" autocomplete="current-password" required>
+                        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-eye toggle-pass" id="togglePass" title="Show password"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span class="btn-text" data-i18n="login.signInBtn"><i class="fa-solid fa-right-to-bracket"></i> Sign In</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+            <div class="form-divider" data-i18n="login.demoHint">Demo Credentials</div>
+
+            <div class="demo-hint">
+                <strong data-i18n="login.emailLabel">Email:</strong> admin@sgt.com<br>
+                <strong data-i18n="login.passwordLabel">Password:</strong> admin
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ LOGIN LOGIC ══════════ -->
+    <script>
+        /* ── If already authenticated, go straight to dashboard ── */
+        if (sessionStorage.getItem('sgt_auth') === 'true') {
+            window.location.replace('dashboard.html');
+        }
+
+        /* ── Elements ── */
+        const form      = document.getElementById('loginForm');
+        const emailIn   = document.getElementById('email');
+        const passIn    = document.getElementById('password');
+        const btn       = document.getElementById('btnLogin');
+        const errBox    = document.getElementById('loginError');
+        const errText   = document.getElementById('errorText');
+        const toggleBtn = document.getElementById('togglePass');
+
+        /* ── Hardcoded mock credentials ── */
+        const MOCK_EMAIL = 'admin@sgt.com';
+        const MOCK_PASS  = 'admin';
+
+        /* ── Password visibility toggle ── */
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = passIn.type === 'password';
+            passIn.type = isHidden ? 'text' : 'password';
+            toggleBtn.classList.toggle('fa-eye');
+            toggleBtn.classList.toggle('fa-eye-slash');
+        });
+
+        /* ── Form submission ── */
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errBox.classList.remove('visible');
+
+            const email = emailIn.value.trim().toLowerCase();
+            const pass  = passIn.value;
+
+            /* Simple validation */
+            if (!email || !pass) {
+                showError(t('login.errorEmpty'));
+                return;
+            }
+
+            /* Simulate a brief loading state */
+            btn.classList.add('loading');
+
+            setTimeout(() => {
+                if (email === MOCK_EMAIL && pass === MOCK_PASS) {
+                    sessionStorage.setItem('sgt_auth', 'true');
+                    window.location.replace('dashboard.html');
+                } else {
+                    btn.classList.remove('loading');
+                    showError(t('login.errorMsg'));
+                    passIn.value = '';
+                    passIn.focus();
+                }
+            }, 800);
+        });
+
+        function showError(msg) {
+            errText.textContent = msg;
+            errBox.classList.remove('visible');
+            /* Force reflow for re-triggering animation */
+            void errBox.offsetWidth;
+            errBox.classList.add('visible');
+        }
+    </script>
+
+</body>
+</html>
