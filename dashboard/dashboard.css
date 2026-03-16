@@ -1432,23 +1432,106 @@ html[dir="rtl"] .control-card {
     html[dir="rtl"] .sidebar--open {
         transform: translateX(0);
     }
+
+    /* ── Main content: reset all desktop RTL margins ── */
     html[dir="rtl"] .main {
         grid-column: 1;
         margin-right: 0;
         margin-left: 0;
         padding: calc(56px + 12px) 14px 28px;
+        width: 100%;
+        box-sizing: border-box;
     }
-    /* RTL stat cards: text aligns right in horizontal layout */
+
+    /* ── Page header ── */
+    html[dir="rtl"] .page-header {
+        align-items: flex-end;
+        text-align: right;
+    }
+
+    /* ── Section headers: icon + text properly aligned for RTL ── */
+    html[dir="rtl"] .section__title {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row-reverse;
+        gap: 8px;
+        width: 100%;
+        font-size: .95rem;
+        text-align: right;
+    }
+
+    /* ── Stat cards: horizontal RTL ── */
     html[dir="rtl"] .stat-card {
         text-align: right;
+        flex-direction: row-reverse;
     }
     html[dir="rtl"] .stat-card__body {
         align-items: flex-end;
     }
-    /* RTL control cards: vertical stays fine */
+
+    /* ── All content containers: prevent offset from desktop RTL rules ── */
+    html[dir="rtl"] .chart-container,
+    html[dir="rtl"] .tower-card,
+    html[dir="rtl"] .control-card,
+    html[dir="rtl"] .diag-ticket,
+    html[dir="rtl"] .water-circle-card,
+    html[dir="rtl"] .water-metric-card {
+        width: 100%;
+        box-sizing: border-box;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    /* ── Chart containers: full width and cohesive ── */
+    html[dir="rtl"] .chart-container {
+        padding: 14px;
+    }
+
+    /* ── Tower cards: text align right ── */
+    html[dir="rtl"] .tower-card__header {
+        text-align: right;
+    }
+    html[dir="rtl"] .tower-card__name {
+        text-align: right;
+    }
+    html[dir="rtl"] .tower-card__body {
+        text-align: right;
+    }
+
+    /* ── Control cards: vertical layout, aligned right ── */
     html[dir="rtl"] .control-card {
         flex-direction: column;
         align-items: flex-end;
+        text-align: right;
+    }
+
+    /* ── Diagnostics: RTL alignment ── */
+    html[dir="rtl"] .diag-ticket {
+        text-align: right;
+    }
+    html[dir="rtl"] .diag-ticket__left {
+        flex-direction: row-reverse;
+    }
+    html[dir="rtl"] .diag-ticket__actions {
+        flex-direction: row-reverse;
+    }
+
+    /* ── Grids: ensure full width ── */
+    html[dir="rtl"] .overview-grid,
+    html[dir="rtl"] .water-grid,
+    html[dir="rtl"] .tower-grid,
+    html[dir="rtl"] .controls-grid {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* ── Section containers ── */
+    html[dir="rtl"] .section {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
