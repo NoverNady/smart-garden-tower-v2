@@ -260,14 +260,14 @@ function renderWaterTank(data) {
 
 /* ═══ 3-C  Tower Management Grid (Advanced IoT Cards) ═══ */
 function renderTowers(towers) {
-    document.getElementById("towerGrid").innerHTML = towers.map(t => {
-        const mod = healthModifier(t.health);
+    document.getElementById("towerGrid").innerHTML = towers.map(tw => {
+        const mod = healthModifier(tw.health);
 
         // Build optional AI diagnosis alert box
-        const aiBox = t.aiDiagnosis
+        const aiBox = tw.aiDiagnosis
             ? `<div class="tower-card__ai-alert">
                    <i class="fa-solid fa-robot"></i>
-                   <span>${t.aiDiagnosis}</span>
+                   <span>${tw.aiDiagnosis}</span>
                </div>`
             : "";
 
@@ -275,15 +275,15 @@ function renderTowers(towers) {
         <div class="tower-card tower-card--${mod}">
             <!-- ── Header: Thumbnail + Info ── -->
             <div class="tower-card__header">
-                <img class="tower-card__thumb" src="${t.thumbnailUrl}" alt="${t.plant} snapshot" loading="lazy">
+                <img class="tower-card__thumb" src="${tw.thumbnailUrl}" alt="${tw.plant} snapshot" loading="lazy">
                 <div class="tower-card__info">
-                    <p class="tower-card__id">Tower ${t.id}</p>
-                    <p class="tower-card__plant">${t.plant}</p>
+                    <p class="tower-card__id">Tower ${tw.id}</p>
+                    <p class="tower-card__plant">${tw.plant}</p>
                 </div>
                 <!-- Convert English health state to translated state -->
                 <span class="tower-card__badge tower-card__badge--${mod}">
-                    ${t.health === 'Good' ? t('dashboard.towers.healthGood') : 
-                      t.health === 'Warning' ? t('dashboard.towers.healthWarning') : 
+                    ${tw.health === 'Good' ? t('dashboard.towers.healthGood') : 
+                      tw.health === 'Warning' ? t('dashboard.towers.healthWarning') : 
                       t('dashboard.towers.healthSlow')}
                 </span>
             </div>
@@ -293,14 +293,14 @@ function renderTowers(towers) {
                 <div class="tower-card__metric">
                     <i class="fa-solid fa-faucet-drip"></i>
                     <div>
-                        <span class="tower-card__metric-val">${t.waterFlowRate}</span>
+                        <span class="tower-card__metric-val">${tw.waterFlowRate}</span>
                         <span class="tower-card__metric-lbl">${t("dashboard.towers.waterFlow")}</span>
                     </div>
                 </div>
                 <div class="tower-card__metric">
                     <i class="fa-solid fa-sun"></i>
                     <div>
-                        <span class="tower-card__metric-val">${t.lightHours}h / ${t.targetLight}h</span>
+                        <span class="tower-card__metric-val">${tw.lightHours}h / ${tw.targetLight}h</span>
                         <span class="tower-card__metric-lbl">${t("dashboard.towers.lightExposure")}</span>
                     </div>
                 </div>
@@ -310,10 +310,10 @@ function renderTowers(towers) {
             <div class="tower-card__progress">
                 <div class="tower-card__progress-label">
                     <span>${t("dashboard.towers.growthCycle")}</span>
-                    <span>${t.growthPercent}%</span>
+                    <span>${tw.growthPercent}%</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-bar__fill" style="width:${t.growthPercent}%"></div>
+                    <div class="progress-bar__fill" style="width:${tw.growthPercent}%"></div>
                 </div>
             </div>
 
@@ -321,14 +321,14 @@ function renderTowers(towers) {
             <div class="tower-card__timeline">
                 <div class="tower-card__date">
                     <i class="fa-solid fa-seedling"></i>
-                    <span>${t("dashboard.towers.planted")}: <strong>${t.plantedDate}</strong></span>
+                    <span>${t("dashboard.towers.planted")}: <strong>${tw.plantedDate}</strong></span>
                 </div>
                 <div class="tower-card__date">
                     <i class="fa-regular fa-calendar-check"></i>
-                    <span>${t("dashboard.towers.harvest")}: <strong>${t.harvestDate}</strong></span>
+                    <span>${t("dashboard.towers.harvest")}: <strong>${tw.harvestDate}</strong></span>
                 </div>
                 <span class="tower-card__days-badge">
-                    <i class="fa-solid fa-hourglass-half"></i> ${t.daysRemaining} ${t("dashboard.towers.daysLeft")}
+                    <i class="fa-solid fa-hourglass-half"></i> ${tw.daysRemaining} ${t("dashboard.towers.daysLeft")}
                 </span>
             </div>
 
@@ -336,7 +336,7 @@ function renderTowers(towers) {
             ${aiBox}
 
             <!-- ── Action Footer ── -->
-            <button class="tower-card__action" data-tower="${t.id}">
+            <button class="tower-card__action" data-tower="${tw.id}">
                 <i class="fa-solid fa-video"></i> ${t("dashboard.towers.viewDetails")}
             </button>
         </div>`;
