@@ -629,16 +629,16 @@ function initNavigation() {
 function initMobileMenu() {
     const btn     = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
+    const overlay = document.getElementById("sidebarOverlay");
 
     btn.addEventListener("click", () => {
         sidebar.classList.toggle("sidebar--open");
-        overlay.classList.toggle("overlay--visible");
+        overlay.classList.toggle("sidebar-overlay--visible");
     });
 
     overlay.addEventListener("click", () => {
         sidebar.classList.remove("sidebar--open");
-        overlay.classList.remove("overlay--visible");
+        overlay.classList.remove("sidebar-overlay--visible");
     });
 }
 
