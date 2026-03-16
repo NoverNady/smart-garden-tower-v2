@@ -76,9 +76,10 @@
         <button class="topbar__toggle" id="menuToggle" aria-label="Toggle Navigation">
             <i class="fa-solid fa-bars"></i>
         </button>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <span class="topbar__title" style="display: flex; align-items: center;"><img src="../logo-circle.png" alt="SGT Logo" style="width: 24px; height: 24px; object-fit: cover; margin-right: 8px;" /> SGT Dashboard</span>
-            <button onclick="toggleLanguage()" class="lang-toggle" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 10px; cursor: pointer; color: #fff; font-size: 0.85rem; transition: all 0.2s;">
+        <div class="topbar__brand">
+            <img src="../logo-circle.png" alt="SGT" class="topbar__logo" />
+            <span class="topbar__title">SGT</span>
+            <button onclick="toggleLanguage()" class="topbar__lang">
                 <i class="fa-solid fa-globe"></i>
             </button>
         </div>
