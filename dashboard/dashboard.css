@@ -1083,26 +1083,38 @@ body {
    ════════════════════════════════════════════════════════════════════════ */
 html[dir="rtl"] body {
     direction: rtl;
-    grid-template-columns: 1fr var(--sidebar-w);
+    grid-template-columns: 1fr;  /* Single column; sidebar is fixed */
 }
 
 html[dir="rtl"] .sidebar {
-    inset: 0 0 0 auto; /* Move to right side */
+    left: auto;
+    right: 0;
+    inset: 0 0 0 auto; /* Pin to right side */
     box-shadow: -4px 0 24px rgba(0,0,0,.08);
 }
 
 html[dir="rtl"] .main {
-    grid-column: 1; /* Move main content to the left */
-}
-
-html[dir="rtl"] .sidebar__link i {
-    text-align: right;
-    width: 20px;
+    grid-column: 1;
+    margin-right: var(--sidebar-w);  /* Offset main content from the fixed right sidebar */
+    margin-left: 0;
 }
 
 html[dir="rtl"] .sidebar__brand {
-    padding-right: 24px;
-    padding-left: 0;
+    padding: 0 24px 32px;
+}
+
+html[dir="rtl"] .sidebar__link {
+    flex-direction: row;
+    gap: 14px;
+}
+
+html[dir="rtl"] .sidebar__link i {
+    text-align: center;
+    width: 20px;
+}
+
+html[dir="rtl"] .sidebar__logout {
+    flex-direction: row;
 }
 
 html[dir="rtl"] .tower-card__metric:first-child {
@@ -1131,6 +1143,19 @@ html[dir="rtl"] .page-header__badge {
     flex-direction: row-reverse;
 }
 
+html[dir="rtl"] .tower-card__ai-alert {
+    border-left: none;
+    border-right: 3px solid var(--clr-warning);
+}
+
+html[dir="rtl"] .diag-ticket__actions {
+    align-items: flex-start;
+}
+
+html[dir="rtl"] .control-card {
+    flex-direction: row;
+}
+
 @media (max-width: 768px) {
     html[dir="rtl"] body {
         grid-template-columns: 1fr;
@@ -1143,5 +1168,7 @@ html[dir="rtl"] .page-header__badge {
     }
     html[dir="rtl"] .main {
         grid-column: 1;
+        margin-right: 0; /* No offset when sidebar is hidden on mobile */
     }
 }
+

@@ -28,6 +28,7 @@ const translations = {
         },
         dashboard: {
             sidebar: {
+                home: 'Home',
                 dashboard: 'Dashboard',
                 towers: 'Towers',
                 analytics: 'Analytics',
@@ -129,6 +130,7 @@ const translations = {
         },
         dashboard: {
             sidebar: {
+                home: 'الرئيسية',
                 dashboard: 'لوحة التحكم',
                 towers: 'الأبراج',
                 analytics: 'التحليلات',
