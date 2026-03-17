@@ -196,17 +196,18 @@
 
         .input-wrap i {
             position: absolute;
-            left: 16px;
+            inset-inline-start: 16px;
             top: 50%;
             transform: translateY(-50%);
             font-size: .9rem;
             color: #bdc3c7;
             transition: color var(--transition);
+            pointer-events: none;
         }
 
         .input-wrap input {
             width: 100%;
-            padding: 14px 46px 14px 46px;
+            padding: 14px 46px;
             border: 2px solid #ecf0f1;
             border-radius: 12px;
             font-family: inherit;
@@ -232,12 +233,12 @@
         /* Password toggle */
         .input-wrap .toggle-pass {
             position: absolute;
-            right: auto;
-            left: auto;
+            inset-inline-start: auto;
             inset-inline-end: 15px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
+            pointer-events: auto;
             font-size: .9rem;
             color: #bdc3c7;
             transition: color var(--transition);
